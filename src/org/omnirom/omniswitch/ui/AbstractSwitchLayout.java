@@ -866,6 +866,8 @@ public abstract class AbstractSwitchLayout implements ISwitchLayout {
                 } else*/ if (item.getItemId() == R.id.package_inspect_item) {
                     mRecentsManager.startApplicationDetailsActivity(ad
                             .getPackageName());
+		}else if (item.getItemId() == R.id.recent_float_item) {
+                    mRecentsManager.floatingTask(ad);
                 } else if (item.getItemId() == R.id.package_add_favorite) {
                     if (intentStr == null) {
                         Log.d(TAG, "failed to add " + ad.getIntent().toUri(0));
@@ -939,6 +941,8 @@ public abstract class AbstractSwitchLayout implements ISwitchLayout {
                 } else if (item.getItemId() == R.id.package_remove_favorite) {
                     Utils.removeFromFavorites(mContext,
                             packageItem.getIntent(), mFavoriteList);
+                } else if (item.getItemId() == R.id.recent_float_item) {
+                    mRecentsManager.startIntentFromtString(packageItem.getIntent(), true, true);
                 } else {
                     return false;
                 }
