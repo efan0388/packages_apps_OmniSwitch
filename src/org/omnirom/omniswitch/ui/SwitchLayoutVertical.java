@@ -22,6 +22,7 @@ import java.util.List;
 import org.omnirom.omniswitch.PackageManager;
 import org.omnirom.omniswitch.R;
 import org.omnirom.omniswitch.SettingsActivity;
+import org.omnirom.omniswitch.SwitchConfiguration;
 import org.omnirom.omniswitch.SwitchManager;
 import org.omnirom.omniswitch.TaskDescription;
 
@@ -337,6 +338,7 @@ public class SwitchLayoutVertical extends AbstractSwitchLayout {
 
         mNoRecentApps.setLayoutParams(getRecentListParams());
         mAppDrawer.setColumnWidth(mConfiguration.mMaxWidth);
+        mAppDrawer.setNumColumns(getAppDrawerColumns());
         mAppDrawer.setLayoutParams(getAppDrawerParams());
         mAppDrawer.requestLayout();
         mAppDrawer.scrollTo(0, 0);
@@ -379,7 +381,7 @@ public class SwitchLayoutVertical extends AbstractSwitchLayout {
     }
 
     protected LinearLayout.LayoutParams getListParams() {
-        return new LinearLayout.LayoutParams(mConfiguration.mMaxWidth,
+        return new LinearLayout.LayoutParams(mConfiguration.mMaxWidth + 10,
                 LinearLayout.LayoutParams.MATCH_PARENT);
     }
 
@@ -401,12 +403,11 @@ public class SwitchLayoutVertical extends AbstractSwitchLayout {
         return params;
     }
 
-    // TODO dont use real icon size values in code
     private int getAppDrawerColumns() {
-        if (mConfiguration.mIconSize == 40) {
+        if (mConfiguration.mIconSizeDesc == SwitchConfiguration.IconSize.SMALL) {
             return 4;
         }
-        if (mConfiguration.mIconSize == 60) {
+        if (mConfiguration.mIconSizeDesc == SwitchConfiguration.IconSize.NORMAL) {
             return 3;
         }
         return 2;
@@ -414,7 +415,7 @@ public class SwitchLayoutVertical extends AbstractSwitchLayout {
 
     private LinearLayout.LayoutParams getAppDrawerParams() {
         return new LinearLayout.LayoutParams(getAppDrawerColumns()
-                * mConfiguration.mMaxWidth,
+                * (mConfiguration.mMaxWidth + 20),
                 LinearLayout.LayoutParams.MATCH_PARENT);
     }
 

@@ -21,7 +21,8 @@
 	<CheckBoxPreference
 		android:key="start_on_boot"
 		android:summary="@string/start_on_boot_summary"
-		android:title="@string/start_on_boot_title" />
+		android:title="@string/start_on_boot_title"
+		android:defaultValue="true" />
 
 	<PreferenceCategory
 		android:key="category_overlay"
@@ -138,15 +139,8 @@
 
 		<org.omnirom.omniswitch.ui.DragHandleColorPreference
 			android:dependency="drag_handle_enable"
-			android:key="drag_handle_color"
+			android:key="drag_handle_color_new"
 			android:title="@string/drag_handle_color_title" />
-
-		<org.omnirom.omniswitch.ui.SeekBarPreference
-			android:defaultValue="100"
-			android:dependency="drag_handle_enable"
-			android:key="drag_handle_opacity"
-			android:max="100"
-			android:title="@string/drag_handle_opacity_title" />
 
 		<CheckBoxPreference
 			android:defaultValue="false"
