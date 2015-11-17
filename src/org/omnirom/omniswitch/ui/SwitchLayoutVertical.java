@@ -206,7 +206,7 @@ public class SwitchLayoutVertical extends AbstractSwitchLayout {
             public void onItemClick(AdapterView<?> parent, View view,
                     int position, long id) {
                 String intent = mFavoriteList.get(position);
-                mRecentsManager.startIntentFromtString(intent, true, false);
+                mRecentsManager.startIntentFromtString(intent, true);
             }
         });
         mFavoriteListView.setAdapter(mFavoriteListAdapter);
@@ -232,7 +232,7 @@ public class SwitchLayoutVertical extends AbstractSwitchLayout {
                 PackageManager.PackageItem packageItem = PackageManager
                         .getInstance(mContext).getPackageList().get(position);
                 mRecentsManager.startIntentFromtString(packageItem.getIntent(),
-                        true, false);
+                        true);
             }
         });
 
