@@ -49,6 +49,7 @@ public class SwitchConfiguration {
     public int mDragHandleWidth;
     public boolean mShowLabels = true;
     public int mDragHandleColor;
+    public float mDragHandleOpacity;
     public int mDefaultColor;
     public int mIconDpi;
     public boolean mAutoHide;
@@ -84,16 +85,6 @@ public class SwitchConfiguration {
     public int mMemDisplaySize;
     public int mLayoutStyle;
     public float mThumbRatio = 1.0f;
-    public IconSize mIconSizeDesc = IconSize.NORMAL;
-
-    private static final String PREF_DRAG_HANDLE_COLOR = "drag_handle_color";
-    private static final String PREF_DRAG_HANDLE_OPACITY = "drag_handle_opacity";
-
-    public enum IconSize {
-        SMALL,
-        NORMAL,
-        LARGE
-    }
 
     public static SwitchConfiguration getInstance(Context context) {
         if (mInstance == null) {
@@ -137,12 +128,6 @@ public class SwitchConfiguration {
             boolean flatStyle = prefs.getBoolean(SettingsActivity.PREF_FLAT_STYLE, true);
             prefs.edit().putString(SettingsActivity.PREF_BG_STYLE, flatStyle ? "0" : "1").commit();
         }
-        if (!prefs.contains(SettingsActivity.PREF_DRAG_HANDLE_COLOR_NEW)) {
-            int dragHandleColor = prefs.getInt(PREF_DRAG_HANDLE_COLOR, mDefaultColor);
-            int opacity = prefs.getInt(PREF_DRAG_HANDLE_OPACITY, 100);
-            dragHandleColor = (dragHandleColor & 0x00FFFFFF) + (opacity << 24);
-            prefs.edit().putInt(SettingsActivity.PREF_DRAG_HANDLE_COLOR_NEW, dragHandleColor).commit();
-        }
     }
 
     public void updatePrefs(SharedPreferences prefs, String key) {
@@ -153,15 +138,6 @@ public class SwitchConfiguration {
         String iconSize = prefs
                 .getString(SettingsActivity.PREF_ICON_SIZE, String.valueOf(mIconSize));
         mIconSize = Integer.valueOf(iconSize);
-        if (mIconSize == 60) {
-            mIconSizeDesc = IconSize.NORMAL;
-            mIconSize = 55;
-        } else if (mIconSize == 80) {
-            mIconSizeDesc = IconSize.LARGE;
-            mIconSize = 75;
-        } else {
-            mIconSizeDesc = IconSize.SMALL;
-        }
         mShowRambar = prefs
                 .getBoolean(SettingsActivity.PREF_SHOW_RAMBAR, true);
         mShowLabels = prefs.getBoolean(SettingsActivity.PREF_SHOW_LABELS, true);
@@ -181,7 +157,9 @@ public class SwitchConfiguration {
         mLabelFontSizePx = Math.round((mLabelFontSize + mIconBorder) * mDensity);
 
         mDragHandleColor = prefs.getInt(
-                    SettingsActivity.PREF_DRAG_HANDLE_COLOR_NEW, mDefaultColor);
+                SettingsActivity.PREF_DRAG_HANDLE_COLOR, mDefaultColor);
+        opacity = prefs.getInt(SettingsActivity.PREF_DRAG_HANDLE_OPACITY, 100);
+        mDragHandleOpacity = (float) opacity / 100.0f;
         mAutoHide = prefs.getBoolean(SettingsActivity.PREF_AUTO_HIDE_HANDLE,
                 false);
         mDragHandleShow = prefs.getBoolean(

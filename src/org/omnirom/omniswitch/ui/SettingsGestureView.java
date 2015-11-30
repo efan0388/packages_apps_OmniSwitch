@@ -354,14 +354,14 @@ public class SettingsGestureView {
         mStartY = SwitchConfiguration.getInstance(mContext).getCurrentOffsetStart();
         mEndY = SwitchConfiguration.getInstance(mContext).getCurrentOffsetEnd();
 
-        mLocation = SwitchConfiguration.getInstance(mContext).mLocation;
+        mLocation = mPrefs.getInt(
+                SettingsActivity.PREF_DRAG_HANDLE_LOCATION, 0);
         if (mLocation == 1){
             mLocationButton.setText(mContext.getResources().getString(R.string.location_right));
         } else {
             mLocationButton.setText(mContext.getResources().getString(R.string.location_left));
         }
-        // discard alpha
-        mColor = SwitchConfiguration.getInstance(mContext).mDragHandleColor | 0xFF000000;
+        mColor = mPrefs.getInt(SettingsActivity.PREF_DRAG_HANDLE_COLOR, mConfiguration.mDefaultColor);
     }
 
     public void show() {

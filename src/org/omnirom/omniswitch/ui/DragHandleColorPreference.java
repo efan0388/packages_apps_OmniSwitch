@@ -53,7 +53,7 @@ public class DragHandleColorPreference extends Preference implements DialogInter
         super(context, attrs, com.android.internal.R.attr.preferenceStyle);
         mConfiguration = SwitchConfiguration.getInstance(context);
         mPrefs = PreferenceManager.getDefaultSharedPreferences(context);
-        mColorValue = mPrefs.getInt(SettingsActivity.PREF_DRAG_HANDLE_COLOR_NEW,
+        mColorValue = mPrefs.getInt(SettingsActivity.PREF_DRAG_HANDLE_COLOR,
                 mConfiguration.mDefaultColor);
         init();
     }
@@ -94,7 +94,8 @@ public class DragHandleColorPreference extends Preference implements DialogInter
 
     private Dialog getDialog() {
         final ColorPickerDialog d = new ColorPickerDialog(getContext(),
-                mColorValue, true);
+                mColorValue);
+
         d.setButton(AlertDialog.BUTTON_POSITIVE,
                 mResources.getString(R.string.ok),
                 new DialogInterface.OnClickListener() {
@@ -103,7 +104,7 @@ public class DragHandleColorPreference extends Preference implements DialogInter
                         mColorValue = d.getColor();
                         updatePreferenceViews();
                         mPrefs.edit()
-                                .putInt(SettingsActivity.PREF_DRAG_HANDLE_COLOR_NEW,
+                                .putInt(SettingsActivity.PREF_DRAG_HANDLE_COLOR,
                                         mColorValue).commit();
                     }
                 });
@@ -115,7 +116,7 @@ public class DragHandleColorPreference extends Preference implements DialogInter
                         mColorValue = mConfiguration.mDefaultColor;
                         updatePreferenceViews();
                         mPrefs.edit()
-                                .putInt(SettingsActivity.PREF_DRAG_HANDLE_COLOR_NEW,
+                                .putInt(SettingsActivity.PREF_DRAG_HANDLE_COLOR,
                                         mColorValue).commit();
                         d.dismiss();
                     }
